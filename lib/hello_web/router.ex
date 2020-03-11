@@ -15,9 +15,17 @@ defmodule HelloWeb.Router do
 
   scope "/", HelloWeb do
     pipe_through :browser
-    get "/hello", HelloController, :index
-    get "/hello/:messenger", HelloController, :show
-    get "/", PageController, :index
+
+    get "/images", ImageController, :index
+    resources "/reviews", ReviewController
+    resources "/users", UserController
+  end
+
+  scope "/admin", HelloWeb.Admin, as: :admin do
+    pipe_through :browser
+    resources "/reviews", ReviewController
+    resources "/images", ImageController
+    resources "/users", UserController
   end
 
   # Other scopes may use custom stacks.
